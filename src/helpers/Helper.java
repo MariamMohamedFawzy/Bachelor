@@ -11,6 +11,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import processing.core.PVector;
+import json.Business;
+import json.JsonToJava;
+import json.Review;
 import Engine.WordTopic;
 import GUI.GUIFunctions;
 
@@ -23,12 +27,11 @@ import liuyang.nlp.lda.main.Documents;
 import liuyang.nlp.lda.main.LdaGibbsSampling;
 import liuyang.nlp.lda.main.LdaGibbsSampling.modelparameters;
 import liuyang.nlp.lda.main.LdaModel;
-import models.Business;
-import models.JsonToJava;
-import models.Review;
 import wordcram.Word;
 
 public class Helper {
+	
+	public static int numLines = 0;
 
 	public static ArrayList<Review> filterReviews(String category, double lat,
 			double lng) {
@@ -133,6 +136,7 @@ public class Helper {
 		ArrayList<WordTopic> words = new ArrayList<WordTopic>();
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(filePath));
+			numLines = lines.size();
 			for (int k = 0; k < lines.size(); k++) {
 				String line = lines.get(k);
 				String[] strs = line.split("\\s+");
@@ -141,8 +145,11 @@ public class Helper {
 //							|| strs[i].equals("badreview")) {
 //						continue;
 //					}
-					words.add(new WordTopic(strs[i], Float
-							.parseFloat(strs[i + 1]), k));
+					WordTopic wt = new WordTopic(strs[i], Float
+							.parseFloat(strs[i + 1]), k);
+					wt.setProperty("colorType", String.valueOf(k));
+					wt.setPlace(new PVector(40 + k*40, 40 + k * 40));
+					words.add(wt);
 				}
 			}
 		} catch (IOException e) {

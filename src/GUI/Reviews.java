@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import models.Review;
+import json.Review;
 import Engine.Engine;
 import Engine.WordTopic;
 

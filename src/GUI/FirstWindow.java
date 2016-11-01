@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
-import models.JsonToJava;
+import json.JsonToJava;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 

@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import json.Review;
 import liuyang.nlp.lda.main.Documents;
 import liuyang.nlp.lda.main.LdaModel;
-import models.Review;
 import processing.core.PApplet;
 import processing.core.PSurface;
 import Engine.Engine;
