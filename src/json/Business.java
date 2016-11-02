@@ -59,7 +59,7 @@ public class Business implements Serializable {
     @Expose
     private String type;
     
-    private int id = 0;
+    private int id;
     
     public int getId() {
     	return this.id;

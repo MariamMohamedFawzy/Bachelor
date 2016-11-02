@@ -76,5 +76,7 @@
 	<classpathentry kind="lib" path="/Users/apple/Downloads/hibernate-release-5.2.4.Final/lib/spatial/slf4j-api-1.7.7.jar"/>
 	<classpathentry kind="lib" path="/Users/apple/Downloads/hibernate-release-5.2.4.Final/lib/spatial/slf4j-simple-1.7.7.jar"/>
 	<classpathentry kind="lib" path="/Users/apple/Downloads/hibernate-release-5.2.4.Final/lib/spatial/waffle-jna-1.7.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Downloads/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Downloads/javassist.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

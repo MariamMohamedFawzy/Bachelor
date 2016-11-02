@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nlp.NLP;
+import DB.ManageReviews;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,10 +20,6 @@ import com.google.gson.JsonSyntaxException;
 
 public class JsonToJava {
 	
-//	public static void main(String[] args) {
-//		ArrayList<Review> reviews = readReviews();
-//	}
-
 	public static ArrayList<Review> readReviews() {
 		// long startTime = System.nanoTime();
 		// 
@@ -98,6 +95,8 @@ public class JsonToJava {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		ManageReviews.saveReviews(reviews);
 
 		saveFile(reviews,
 				"/Users/apple/Documents/workspace/Bachelor Project/src/ser_reviews");
@@ -164,6 +163,8 @@ public class JsonToJava {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+//			ManageReviews.saveBusinesses(businesses);
 
 			saveFile(businesses,
 					"/Users/apple/Documents/workspace/Bachelor Project/src/ser_businesses");

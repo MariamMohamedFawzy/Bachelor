@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="json.Review" table="Review">
+      <meta attribute="class-description">
+         This class contains the review detail. 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="seqhilo">
+	    </generator>
+      </id>
+      <component name="votes" class="json.Votes">
+         <property name="funny" column="votes_funny" type="int"/>
+         <property name="useful" column="votes_useful" type="int"/>
+         <property name="cool" column="votes_cool" type="int"/>
+      </component>
+      <property name="userId" column="user_id" type="string"/>
+      <property name="text" column="review_text" type="string"/>
+      <property name="businessId" column="business_id" type="int"/>
+      <property name="reviewId" column="review_id" type="int"/>
+      <property name="stars" column="stars" type="int"/>
+      <property name="date" column="date" type="string"/>
+   </class>
+   
+   
+   <class name="json.Business" table="Business">
+      <meta attribute="class-description">
+         This class contains the business detail. 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="seqhilo">
+	    </generator>
+      </id>
+      <component name="hours" class="json.Hours">
+        <component name="friday" class="json.Friday"> 
+          <property name="close" column="hours_fri_close" type="string"/>
+          <property name="open" column="hours_fri_open" type="string"/>
+        </component>
+        <component name="monday" class="json.Monday"> 
+          <property name="close" column="hours_mon_close" type="string"/>
+          <property name="open" column="hours_mon_open" type="string"/>
+        </component>
+        <component name="tuesday" class="json.Tuesday"> 
+          <property name="close" column="hours_tues_close" type="string"/>
+          <property name="open" column="hours_tues_open" type="string"/>
+        </component>
+        <component name="wednesday" class="json.Wednesday"> 
+          <property name="close" column="hours_wed_close" type="string"/>
+          <property name="open" column="hours_wed_open" type="string"/>
+        </component>
+        <component name="thursday" class="json.Thursday"> 
+          <property name="close" column="hours_thu_close" type="string"/>
+          <property name="open" column="hours_thu_open" type="string"/>
+        </component>
+      </component>
+      <component name ="attributes" class="json.Attributes">
+      	<component name ="goodFor" class="json.GoodFor">
+      	  <property name="dessert" column="attr_good_for_dessert" type="boolean"/>
+      	  <property name="latenight" column="attr_good_for_latenight" type="boolean"/>
+      	  <property name="lunch" column="attr_good_for_lunch" type="boolean"/>
+      	  <property name="dinner" column="attr_good_for_dinner" type="boolean"/>
+      	  <property name="brunch" column="attr_good_for_brunch" type="boolean"/>
+      	  <property name="breakfast" column="attr_good_for_breakfast" type="boolean"/>
+        </component>
+        <component name ="ambience" class="json.Ambience">
+      	  <property name="romantic" column="attr_ambience_romantic" type="boolean"/>
+      	  <property name="intimate" column="attr_ambience_intimate" type="boolean"/>
+      	  <property name="classy" column="attr_ambience_classy" type="boolean"/>
+      	  <property name="hipster" column="attr_ambience_hipster" type="boolean"/>
+      	  <property name="divey" column="attr_ambience_divey" type="boolean"/>
+      	  <property name="touristy" column="attr_ambience_touristy" type="boolean"/>
+      	  <property name="trendy" column="attr_ambience_trendy" type="boolean"/>
+      	  <property name="upscale" column="attr_ambience_upscale" type="boolean"/>
+      	  <property name="casual" column="attr_ambience_casual" type="boolean"/>
+        </component>
+        <component name ="parking" class="json.Parking">
+      	  <property name="garage" column="attr_parking_garage" type="boolean"/>
+      	  <property name="street" column="attr_parking_street" type="boolean"/>
+      	  <property name="validated" column="attr_parking_validated" type="boolean"/>
+      	  <property name="lot" column="attr_parking_lot" type="boolean"/>
+      	  <property name="valet" column="attr_parking_valet" type="boolean"/>
+        </component> 
+      	<property name="takeOut" column="attr_take_out" type="boolean"/>
+      	<property name="driveThru" column="attr_drive_thru" type="boolean"/>
+      	<property name="caters" column="attr_caters" type="boolean"/>
+      	<property name="noiseLevel" column="attr_noise_level" type="string"/>
+      	<property name="takesReservations" column="attr_takes_reservations" type="boolean"/>
+      	<property name="delivery" column="attr_delivery" type="boolean"/>
+      	<property name="hasTV" column="attr_has_tv" type="boolean"/>
+      	<property name="outdoorSeating" column="attr_outdoor_seating" type="boolean"/>
+      	<property name="attire" column="attr_attire" type="string"/>
+      	<property name="alcohol" column="attr_alcohol" type="string"/>
+      	<property name="waiterService" column="attr_waiter_service" type="boolean"/>
+      	<property name="acceptsCreditCards" column="attr_accepts_credit_cards" type="boolean"/>
+      	<property name="goodForKids" column="attr_good_for_kids" type="boolean"/>
+      	<property name="goodForGroups" column="attr_good_for_groups" type="boolean"/>
+      	<property name="priceRange" column="attr_price_range" type="int"/>
+      </component> 
+      <list name="categories" table="Category">  
+		  <key column="business_id"></key>  
+		  <index column="id"/>
+		  <element column="name" type="string"></element>  
+		</list> 
+      <property name="fullAddress" column="full_address" type="string"/>
+      <property name="businessId" column="business_id" type="string"/>
+      <property name="open" column="open" type="boolean"/>
+      <property name="name" column="name" type="string"/>
+      <property name="state" column="state" type="string"/>
+      <property name="city" column="city" type="string"/>
+      <property name="longitude" column="longitude" type="double"/>
+      <property name="latitude" column="latitude" type="double"/>
+      <property name="stars" column="stars" type="double"/>
+      <property name="reviewCount" column="review_count" type="int"/>
+   </class>
+   
+   
+   
+   
+   
+</hibernate-mapping>

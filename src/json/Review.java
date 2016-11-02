@@ -40,7 +40,7 @@ public class Review implements Serializable {
     @Expose
     private String businessId;
     
-    private int id = 0;
+    private int id;
     
     public int getId() {
     	return this.id;
