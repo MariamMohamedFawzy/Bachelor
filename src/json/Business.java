@@ -59,15 +59,15 @@ public class Business implements Serializable {
     @Expose
     private String type;
     
-//    private int id;
-//    
-//    public int getId() {
-//    	return this.id;
-//    }
-//    
-//    public void setId(int id) {
-//    	this.id = id;
-//    }
+    private int id = 0;
+    
+    public int getId() {
+    	return this.id;
+    }
+    
+    public void setId(int id) {
+    	this.id = id;
+    }
 
     /**
      * 

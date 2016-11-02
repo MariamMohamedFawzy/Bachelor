@@ -138,6 +138,8 @@ public class Helper {
 			List<String> lines = Files.readAllLines(Paths.get(filePath));
 			numLines = lines.size();
 			for (int k = 0; k < lines.size(); k++) {
+				int yPos = 80 + 400 * (k / 15);
+				int xPos = 80 + 90 * (k % 15);
 				String line = lines.get(k);
 				String[] strs = line.split("\\s+");
 				for (int i = 3; i < strs.length; i += 2) {
@@ -148,7 +150,7 @@ public class Helper {
 					WordTopic wt = new WordTopic(strs[i], Float
 							.parseFloat(strs[i + 1]), k);
 					wt.setProperty("colorType", String.valueOf(k));
-					wt.setPlace(new PVector(40 + k*40, 40 + k * 40));
+					wt.setPlace(new PVector(xPos, yPos));
 					words.add(wt);
 				}
 			}

@@ -68,93 +68,93 @@ public class MyTest extends PApplet {
 		         if (w.getProperty("colorType").equals("0")) {
 		           return color(132,208,41);
 		         }
-//		         else if (w.getProperty("colorType").equals("0")) {
-//		        	 return color(132,208,41);
-//		         }
-//		         else if (w.getProperty("colorType").equals("2")) {
-//		        	 return color(255, 100, 200);
-//		         } 
-//		         else if (w.getProperty("colorType").equals("3")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("4")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("5")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("6")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("7")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("8")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("9")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("10")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("11")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("12")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("13")) {
-//		        	 return color(255,127,0);
-//		         }
-//		         else if (w.getProperty("colorType").equals("14")) {
-//		        	 return color(255,127,0);
-//		         }
-//		         else if (w.getProperty("colorType").equals("15")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("16")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("17")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("18")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("19")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("20")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("21")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("22")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("23")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("24")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("25")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("26")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("27")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("28")) {
-//		        	 return color(255, 100, 200);
-//		         }
-//		         else if (w.getProperty("colorType").equals("29")) {
-//		        	 return color(255, 100, 200);
-//		         }
+		         else if (w.getProperty("colorType").equals("0")) {
+		        	 return color(255, 204, 0);
+		         }
+		         else if (w.getProperty("colorType").equals("2")) {
+		        	 return color(255,49,0);
+		         } 
+		         else if (w.getProperty("colorType").equals("3")) {
+		        	 return color(255,0,135);
+		         }
+		         else if (w.getProperty("colorType").equals("4")) {
+		        	 return color(50,255,252);
+		         }
+		         else if (w.getProperty("colorType").equals("5")) {
+		        	 return color(0,255,26);
+		         }
+		         else if (w.getProperty("colorType").equals("6")) {
+		        	 return color(50, 55, 100);
+		         }
+		         else if (w.getProperty("colorType").equals("7")) {
+		        	 return color(81,213,255);
+		         }
+		         else if (w.getProperty("colorType").equals("8")) {
+		        	 return color(65);
+		         }
+		         else if (w.getProperty("colorType").equals("9")) {
+		        	 return color(0,151,255);
+		         }
+		         else if (w.getProperty("colorType").equals("10")) {
+		        	 return color(187,255,0);
+		         }
+		         else if (w.getProperty("colorType").equals("11")) {
+		        	 return color(173,78,0);
+		         }
+		         else if (w.getProperty("colorType").equals("12")) {
+		        	 return color(173,197,255);
+		         }
+		         else if (w.getProperty("colorType").equals("13")) {
+		        	 return color(181,112,255);
+		         }
+		         else if (w.getProperty("colorType").equals("14")) {
+		        	 return color(71,164,255);
+		         }
+		         else if (w.getProperty("colorType").equals("15")) {
+		        	 return color(217,255,0);
+		         }
+		         else if (w.getProperty("colorType").equals("16")) {
+		        	 return color(71,211,255);
+		         }
+		         else if (w.getProperty("colorType").equals("17")) {
+		        	 return color(255,122,246);
+		         }
+		         else if (w.getProperty("colorType").equals("18")) {
+		        	 return color(100);
+		         }
+		         else if (w.getProperty("colorType").equals("19")) {
+		        	 return color(112,255,170);
+		         }
+		         else if (w.getProperty("colorType").equals("20")) {
+		        	 return color(3,0,122);
+		         }
+		         else if (w.getProperty("colorType").equals("21")) {
+		        	 return color(191,81,255);
+		         }
+		         else if (w.getProperty("colorType").equals("22")) {
+		        	 return color(122,250,255);
+		         }
+		         else if (w.getProperty("colorType").equals("23")) {
+		        	 return color(132,0,57);
+		         }
+		         else if (w.getProperty("colorType").equals("24")) {
+		        	 return color(61,255,134);
+		         }
+		         else if (w.getProperty("colorType").equals("25")) {
+		        	 return color(97,0,163);
+		         }
+		         else if (w.getProperty("colorType").equals("26")) {
+		        	 return color(118,163,0);
+		         }
+		         else if (w.getProperty("colorType").equals("27")) {
+		        	 return color(81,91,255);
+		         }
+		         else if (w.getProperty("colorType").equals("28")) {
+		        	 return color(255,71,104);
+		         }
+		         else if (w.getProperty("colorType").equals("29")) {
+		        	 return color(12,142,0);
+		         }
 		         else {
 		           return color(255, 100, 200);
 		         }
