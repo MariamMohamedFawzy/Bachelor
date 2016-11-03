@@ -69,7 +69,25 @@ public class Business implements Serializable {
     	this.id = id;
     }
 
-    /**
+    private List<Category> listCategories = null;
+    
+    
+    
+    public List<Category> getListCategories() {
+    	if (listCategories == null) {
+    		listCategories = new ArrayList<Category>();
+    		for (String string : categories) {
+				listCategories.add(new Category(string));
+			}
+    	}
+		return listCategories;
+	}
+
+	public void setListCategories(List<Category> listCategories) {
+		this.listCategories = listCategories;
+	}
+
+	/**
      * 
      * @return
      *     The businessId

@@ -4,12 +4,12 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping>
-   <class name="json.Review" table="Review">
+   <class name="json.Review" table="review">
       <meta attribute="class-description">
          This class contains the review detail. 
       </meta>
       <id name="id" type="int" column="id">
-         <generator class="seqhilo">
+         <generator class="increment">
 	    </generator>
       </id>
       <component name="votes" class="json.Votes">
@@ -26,12 +26,12 @@
    </class>
    
    
-   <class name="json.Business" table="Business">
+   <class name="json.Business" table="business">
       <meta attribute="class-description">
          This class contains the business detail. 
       </meta>
       <id name="id" type="int" column="id">
-         <generator class="seqhilo">
+         <generator class="increment">
 	    </generator>
       </id>
       <component name="hours" class="json.Hours">
@@ -99,11 +99,7 @@
       	<property name="goodForGroups" column="attr_good_for_groups" type="boolean"/>
       	<property name="priceRange" column="attr_price_range" type="int"/>
       </component> 
-      <list name="categories" table="Category">  
-		  <key column="business_id"></key>  
-		  <index column="id"/>
-		  <element column="name" type="string"></element>  
-		</list> 
+      
       <property name="fullAddress" column="full_address" type="string"/>
       <property name="businessId" column="business_id" type="string"/>
       <property name="open" column="open" type="boolean"/>
@@ -116,6 +112,16 @@
       <property name="reviewCount" column="review_count" type="int"/>
    </class>
    
+   <class name="json.Category" table="category">
+      <meta attribute="class-description">
+         This class contains the Category records. 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="increment" />
+      </id>
+      <property name="name" column="name" type="string"/>
+      <property name="businessId" column="business_id" type="int"/>
+   </class>
    
    
    

@@ -164,7 +164,7 @@ public class JsonToJava {
 				e.printStackTrace();
 			}
 			
-//			ManageReviews.saveBusinesses(businesses);
+			ManageReviews.saveBusinesses(businesses);
 
 			saveFile(businesses,
 					"/Users/apple/Documents/workspace/Bachelor Project/src/ser_businesses");

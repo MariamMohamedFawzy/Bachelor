@@ -1,17 +1,23 @@
 package DB;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.ArrayList;
 
 import json.Business;
+import json.Category;
 import json.Review;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import com.google.gson.Gson;
+import com.mysql.jdbc.Statement;
 
 public class ManageReviews {
 
@@ -27,9 +33,11 @@ public class ManageReviews {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
+			int counter = 1;
 			for (Review review : reviews) {
+				review.setId(counter);
 				session.save(review);
-				session.flush();
+				counter++;
 			}
 			tx.commit();
 		} catch (HibernateException e) {
@@ -49,6 +57,7 @@ public class ManageReviews {
 		}
 	}
 
+
 	public static void saveBusinesses(ArrayList<Business> businesses) {
 		SessionFactory factory;
 		try {
@@ -61,22 +70,21 @@ public class ManageReviews {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			int counter = 0;
-			// Gson gson = new Gson();
+			int counter = 1;
+			int counter2 = 1;
 			for (int i = 0; i < businesses.size(); i++) {
 				Business business = businesses.get(i);
-				// System.out.println(gson.toJson(business));
-				// System.out.println(counter);
-				// business.setId(counter);
+				business.setId(counter);
 				session.save(business);
-				// session.flush();
-				if (counter % 20 == 0) {
-					session.flush();
-					session.clear();
+				for (Category category : business.getListCategories()) {
+					category.setId(counter2);
+					category.setBusinessId(counter);
+					session.save(category);
+					counter2++;
 				}
+
 				counter++;
 			}
-			System.out.println("all");
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
