@@ -1,8 +1,8 @@
 alpha = 0.5
 beta = 0.1
 topicNum = 30
-docNum = 8943
-termNum = 42567
+docNum = 202
+termNum = 3041
 iterations = 100
 saveStep = 10
 beginSaveIters = 80

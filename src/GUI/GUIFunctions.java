@@ -17,12 +17,13 @@ import liuyang.nlp.lda.main.Documents;
 import liuyang.nlp.lda.main.LdaModel;
 import processing.core.PApplet;
 import processing.core.PSurface;
+import DB.ManageReviews;
 import Engine.Engine;
 import Engine.WordTopic;
 import JXMapClasses.GeocoderExample;
 
 public class GUIFunctions {
-	
+
 	public static void start() {
 		JsonToJava.start();
 	}
@@ -31,13 +32,13 @@ public class GUIFunctions {
 
 	private static ArrayList<Review> wordReviews = null;
 	private static ArrayList<Review> allReviews = null;
-	
+
 	private static LdaModel model = null;
 	private static Documents docSet;
 
 	private static int windowWidth;
 	private static int windowHeight;
-	
+
 	private static int posX;
 	private static int posY;
 
@@ -48,11 +49,12 @@ public class GUIFunctions {
 				GUIFunctions.setWindowHeight(c.getHeight());
 				GUIFunctions.setWindowWidth(c.getWidth());
 			}
+
 			public void componentMoved(ComponentEvent evt) {
 				Component c = (Component) evt.getSource();
 				GUIFunctions.setPosX(c.getX());
 				GUIFunctions.setPosY(c.getY());
-		    }
+			}
 		});
 	}
 
@@ -99,20 +101,27 @@ public class GUIFunctions {
 				double lng;
 				String latStr = firstWindowFrame.getjTextFieldLat().getText();
 				String lngStr = firstWindowFrame.getjTextFieldLong().getText();
+				boolean considerLocation = true;
 				try {
 					lat = Double.parseDouble(latStr);
 				} catch (Exception e) {
 					lat = -1;
+					considerLocation = false;
 				}
 				try {
 					lng = Double.parseDouble(lngStr);
 				} catch (Exception e) {
 					lng = -1;
+					considerLocation = false;
 				}
 				if (firstWindowFrame.getjComboBox1().getSelectedItem() != null) {
-					ArrayList<Review> reviews = Engine.filterReviews(
-							firstWindowFrame.getjComboBox1().getSelectedItem()
-									.toString(), lat, lng);
+					// ArrayList<Review> reviews = Engine.filterReviews(
+					// firstWindowFrame.getjComboBox1().getSelectedItem()
+					// .toString(), lat, lng);
+					ArrayList<Review> reviews = ManageReviews
+							.getReviewsByCategoryAndLocation(firstWindowFrame
+									.getjComboBox1().getSelectedItem()
+									.toString(), lng, lat, considerLocation);
 					doTopicModelling(reviews);
 					PApplet.main(new String[] { "--bgcolor=#ECE9D8",
 							"GUI.MyTest" });
@@ -162,18 +171,21 @@ public class GUIFunctions {
 			double lng;
 			String latStr = firstWindowFrame.getjTextFieldLat().getText();
 			String lngStr = firstWindowFrame.getjTextFieldLong().getText();
+			boolean considerLocation = true;
 			try {
 				lat = Double.parseDouble(latStr);
 			} catch (Exception e) {
 				lat = -1;
+				considerLocation = false;
 			}
 			try {
 				lng = Double.parseDouble(lngStr);
 			} catch (Exception e) {
 				lng = -1;
+				considerLocation = false;
 			}
 			Reviews allReviews = new Reviews(true, firstWindowFrame
-					.getjComboBox1().getSelectedItem().toString(), lat, lng);
+					.getjComboBox1().getSelectedItem().toString(), lat, lng, considerLocation);
 			allReviews.setVisible(true);
 		}
 	}
@@ -188,11 +200,21 @@ public class GUIFunctions {
 		// firstWindowFrame = new FirstWindow();
 
 	}
-	
+
 	public static void resetFirstWindow() {
 		firstWindowFrame.getjComboBox1().setSelectedIndex(-1);
 		firstWindowFrame.getjTextFieldLat().setText("");
 		firstWindowFrame.getjTextFieldLong().setText("");
+	}
+	
+	public static void rankBusinesses(WordTopic wordTopic, ArrayList<Review> reviews, JFrame frame) {
+		Businesses businessesFrame = new Businesses(wordTopic, reviews);
+		businessesFrame.setVisible(true);
+		frame.dispose();
+	}
+	
+	public static ArrayList doRankingOfBusinesses(WordTopic wordTopic, ArrayList<Review> reviews) {
+		return Engine.rankBusinesses(wordTopic, getModel(), reviews);
 	}
 
 	//
@@ -201,7 +223,7 @@ public class GUIFunctions {
 		Object[] obj = Engine.doTopicModelling(reviews);
 		model = (LdaModel) obj[0];
 		docSet = (Documents) obj[1];
-		
+
 	}
 
 	//

@@ -28,7 +28,7 @@ public class LdaModel {
 	int [] nmkSum;//Sum for each row in nmk
 	int [] nktSum;//Sum for each row in nkt
 	double [][] phi;//Parameters for topic-word distribution K*V
-	double [][] theta;//Parameters for doc-topic distribution M*K
+	public double [][] theta;//Parameters for doc-topic distribution M*K
 	int iterations;//Times of iterations
 	int saveStep;//The number of iterations between two saving
 	int beginSaveIters;//Begin save model at this iteration

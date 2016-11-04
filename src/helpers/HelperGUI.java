@@ -15,6 +15,7 @@ import processing.core.PVector;
 import json.Business;
 import json.JsonToJava;
 import json.Review;
+import DB.ManageReviews;
 import Engine.WordTopic;
 import GUI.GUIFunctions;
 
@@ -33,47 +34,6 @@ public class HelperGUI {
 	
 	public static int numLines = 0;
 
-	public static ArrayList<Review> filterReviews(String category, double lat,
-			double lng) {
-		DecimalFormat df = new DecimalFormat("#.##");
-
-		if (lat != -1 && lng != -1) {
-			lat = Double.valueOf(df.format(lat));
-			lng = Double.valueOf(df.format(lng));
-		}
-
-		ArrayList<Business> businesses = JsonToJava.readBusinesses();
-
-		ArrayList<Review> reviews = JsonToJava.readReviews();
-
-		ArrayList<String> businessesFiltered = new ArrayList<String>();
-
-		ArrayList<Review> reviewsFiltered = new ArrayList<Review>();
-
-		if (lat != -1 && lng != -1) {
-			for (Business business : businesses) {
-				if (business.getCategories().contains(category)
-						&& Double.valueOf(df.format(business.getLatitude())) == lat
-						&& Double.valueOf(df.format(business.getLongitude())) == lng) {
-					businessesFiltered.add(business.getBusinessId());
-				}
-			}
-		} else {
-			for (Business business : businesses) {
-				if (business.getCategories().contains(category)) {
-					businessesFiltered.add(business.getBusinessId());
-				}
-			}
-		}
-
-		for (Review review : reviews) {
-			if (businessesFiltered.contains(review.getBusinessId())) {
-				reviewsFiltered.add(review);
-			}
-		}
-
-		return reviewsFiltered;
-	}
 
 	public static void purgeDirectory(File dir) {
 		for (File file : dir.listFiles()) {
@@ -128,10 +88,10 @@ public class HelperGUI {
 				String line = lines.get(k);
 				String[] strs = line.split("\\s+");
 				for (int i = 3; i < strs.length; i += 2) {
-//					if (strs[i].equals("goodreview")
-//							|| strs[i].equals("badreview")) {
-//						continue;
-//					}
+					if (strs[i].equals("goodreview")
+							|| strs[i].equals("badreview")) {
+						continue;
+					}
 					WordTopic wt = new WordTopic(strs[i], Float
 							.parseFloat(strs[i + 1]), k);
 					wt.setProperty("colorType", String.valueOf(k));
@@ -192,6 +152,16 @@ public class HelperGUI {
 		}
 		System.out.println("result size = " + result.size());
 		return result;
+	}
+	
+	public static void rankBusinesses(WordTopic word, ArrayList<Review> reviews) {
+		LdaModel model = GUIFunctions.getModel();
+		double theta[][] = model.theta;
+		int topicNum = word.getTopicNum();
+		
+		ManageReviews.rankBusinesses(word, model, reviews);
+		
+		
 	}
 
 }

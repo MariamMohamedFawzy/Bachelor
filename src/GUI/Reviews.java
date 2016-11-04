@@ -9,6 +9,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import json.Review;
+import DB.ManageReviews;
 import Engine.Engine;
 import Engine.WordTopic;
 
@@ -29,9 +30,10 @@ public class Reviews extends javax.swing.JFrame {
 	private String category;
 	private double lat;
 	private double lng;
+	boolean considerLocation;
 	
 	private WordTopic word = null;
-	
+
 	ArrayList<Review> reviewsArr = null;
 	
 	private DefaultTableModel tableModel;
@@ -42,6 +44,14 @@ public class Reviews extends javax.swing.JFrame {
 
 	public void setAllReviews(boolean allReviews) {
 		this.allReviews = allReviews;
+	}
+	
+	public WordTopic getWord() {
+		return word;
+	}
+
+	public void setWord(WordTopic word) {
+		this.word = word;
 	}
 
 	Object[][] reviews = { { null, null, null, null, null, null } };
@@ -74,11 +84,12 @@ public class Reviews extends javax.swing.JFrame {
 		GUIFunctions.addResizeEvent(this);
 	}
 
-	public Reviews(boolean allReview, String category, double lat, double lng) {
+	public Reviews(boolean allReview, String category, double lat, double lng, boolean considerLocation) {
 		this.allReviews = allReview;
 		this.category = category;
 		this.lat = lat;
 		this.lng = lng;
+		this.considerLocation = considerLocation;
 		if (allReview) {
 			SwingUtilities.invokeLater(doWorkRunnable);
 		}
@@ -105,7 +116,7 @@ public class Reviews extends javax.swing.JFrame {
 
 	private void initReviews() {
 		if (allReviews) {
-			reviewsArr = Engine.filterReviews(category, lat, lng);	
+			reviewsArr = ManageReviews.getReviewsByCategoryAndLocation(category, lat, lng, considerLocation);	
 		} else {
 			reviewsArr = Engine.getReviewsOfWord(this.word);
 		}
@@ -135,6 +146,7 @@ public class Reviews extends javax.swing.JFrame {
 		jMenu1 = new javax.swing.JMenu();
 		jMenuItemRestart = new javax.swing.JMenuItem();
 		jMenuItemTopics = new javax.swing.JMenuItem();
+		jMenuItemBusinesses = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +161,7 @@ public class Reviews extends javax.swing.JFrame {
 		tableModel = new javax.swing.table.DefaultTableModel(reviews,
 				new String[] { "#", "Review", "Useful votes", "Funny votes",
 				"Cool votes", "Stars" });
+		jTable1.setRowHeight(30);
 		jTable1.setModel(tableModel);
 		// jTable1.getColumnModel().getColumn(1).setCellRenderer(new
 		// ReviewRowRenderer());
@@ -176,12 +189,24 @@ public class Reviews extends javax.swing.JFrame {
 			}
 		});
 		jMenu1.add(jMenuItemRestart);
+		
+		jMenuItemBusinesses.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+		jMenuItemBusinesses.setText("Rank buinesses");
+		jMenuItemBusinesses.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemBusinessesActionPerformed(evt);
+			}
+		});
 
+		if (!allReviews) {
+			jMenu1.add(jMenuItemBusinesses);
+		}
+		
 		jMenuBar1.add(jMenu1);
 
 		setJMenuBar(jMenuBar1);
 
-		if (allReviews) {
+//		if (allReviews) {
 			javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 					getContentPane());
 			getContentPane().setLayout(layout);
@@ -201,53 +226,53 @@ public class Reviews extends javax.swing.JFrame {
 									javax.swing.GroupLayout.DEFAULT_SIZE, 297,
 									Short.MAX_VALUE).addContainerGap()));
 
-		} else {
-			javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
-					getContentPane());
-			getContentPane().setLayout(layout);
-			layout.setHorizontalGroup(layout
-					.createParallelGroup(
-							javax.swing.GroupLayout.Alignment.LEADING)
-					.addGroup(
-							layout.createSequentialGroup()
-									.addContainerGap()
-									.addGroup(
-											layout.createParallelGroup(
-													javax.swing.GroupLayout.Alignment.LEADING)
-													.addComponent(
-															jScrollPane1,
-															javax.swing.GroupLayout.Alignment.TRAILING,
-															javax.swing.GroupLayout.DEFAULT_SIZE,
-															586,
-															Short.MAX_VALUE)
-													.addGroup(
-															javax.swing.GroupLayout.Alignment.TRAILING,
-															layout.createSequentialGroup()
-																	.addGap(0,
-																			0,
-																			Short.MAX_VALUE)
-																	.addComponent(
-																			jLabelWord)
-																	.addGap(0,
-																			0,
-																			Short.MAX_VALUE)))
-									.addContainerGap()));
-			layout.setVerticalGroup(layout
-					.createParallelGroup(
-							javax.swing.GroupLayout.Alignment.LEADING)
-					.addGroup(
-							layout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(jLabelWord)
-									.addPreferredGap(
-											javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-									.addComponent(
-											jScrollPane1,
-											javax.swing.GroupLayout.DEFAULT_SIZE,
-											294, Short.MAX_VALUE)
-									.addContainerGap()));
-
-		}
+//		} else {
+//			javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
+//					getContentPane());
+//			getContentPane().setLayout(layout);
+//			layout.setHorizontalGroup(layout
+//					.createParallelGroup(
+//							javax.swing.GroupLayout.Alignment.LEADING)
+//					.addGroup(
+//							layout.createSequentialGroup()
+//									.addContainerGap()
+//									.addGroup(
+//											layout.createParallelGroup(
+//													javax.swing.GroupLayout.Alignment.LEADING)
+//													.addComponent(
+//															jScrollPane1,
+//															javax.swing.GroupLayout.Alignment.TRAILING,
+//															javax.swing.GroupLayout.DEFAULT_SIZE,
+//															586,
+//															Short.MAX_VALUE)
+//													.addGroup(
+//															javax.swing.GroupLayout.Alignment.TRAILING,
+//															layout.createSequentialGroup()
+//																	.addGap(0,
+//																			0,
+//																			Short.MAX_VALUE)
+//																	.addComponent(
+//																			jLabelWord)
+//																	.addGap(0,
+//																			0,
+//																			Short.MAX_VALUE)))
+//									.addContainerGap()));
+//			layout.setVerticalGroup(layout
+//					.createParallelGroup(
+//							javax.swing.GroupLayout.Alignment.LEADING)
+//					.addGroup(
+//							layout.createSequentialGroup()
+//									.addContainerGap()
+//									.addComponent(jLabelWord)
+//									.addPreferredGap(
+//											javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+//									.addComponent(
+//											jScrollPane1,
+//											javax.swing.GroupLayout.DEFAULT_SIZE,
+//											294, Short.MAX_VALUE)
+//									.addContainerGap()));
+//
+//		}
 
 		pack();
 		setLocationRelativeTo(null);
@@ -286,51 +311,12 @@ public class Reviews extends javax.swing.JFrame {
 	private void jMenuItemTopicsActionPerformed(java.awt.event.ActionEvent evt) {
 		GUIFunctions.showWords(this, reviewsArr);
 	}
-
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	// public static void main(String args[]) {
-	// /* Set the Nimbus look and feel */
-	// // <editor-fold defaultstate="collapsed"
-	// // desc=" Look and feel setting code (optional) ">
-	// /*
-	// * If Nimbus (introduced in Java SE 6) is not available, stay with the
-	// * default look and feel. For details see
-	// * http://download.oracle.com/javase
-	// * /tutorial/uiswing/lookandfeel/plaf.html
-	// */
-	// try {
-	// for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-	// .getInstalledLookAndFeels()) {
-	// if ("Nimbus".equals(info.getName())) {
-	// javax.swing.UIManager.setLookAndFeel(info.getClassName());
-	// break;
-	// }
-	// }
-	// } catch (ClassNotFoundException ex) {
-	// java.util.logging.Logger.getLogger(Reviews.class.getName()).log(
-	// java.util.logging.Level.SEVERE, null, ex);
-	// } catch (InstantiationException ex) {
-	// java.util.logging.Logger.getLogger(Reviews.class.getName()).log(
-	// java.util.logging.Level.SEVERE, null, ex);
-	// } catch (IllegalAccessException ex) {
-	// java.util.logging.Logger.getLogger(Reviews.class.getName()).log(
-	// java.util.logging.Level.SEVERE, null, ex);
-	// } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	// java.util.logging.Logger.getLogger(Reviews.class.getName()).log(
-	// java.util.logging.Level.SEVERE, null, ex);
-	// }
-	// // </editor-fold>
-	//
-	// /* Create and display the form */
-	// java.awt.EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// new Reviews().setVisible(true);
-	// }
-	// });
-	// }
+	
+	private void jMenuItemBusinessesActionPerformed(java.awt.event.ActionEvent evt) {
+		System.out.println("here");
+		GUIFunctions.rankBusinesses(word, reviewsArr, this);
+	}
+	
 
 	// Variables declaration - do not modify
 	private javax.swing.JLabel jLabelWord;
@@ -340,5 +326,6 @@ public class Reviews extends javax.swing.JFrame {
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JMenuItem jMenuItemRestart;
 	private javax.swing.JMenuItem jMenuItemTopics;
+	private javax.swing.JMenuItem jMenuItemBusinesses;
 	// End of variables declaration
 }

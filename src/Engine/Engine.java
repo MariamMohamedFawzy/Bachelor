@@ -1,10 +1,12 @@
 package Engine;
 
 import helpers.HelperGUI;
+import helpers.HelperManageReviews;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import DB.ManageReviews;
 import json.Business;
 import json.JsonToJava;
 import json.Review;
@@ -13,12 +15,6 @@ import liuyang.nlp.lda.main.LdaModel;
 
 public class Engine {
 
-	public static ArrayList<Review> filterReviews(String category, double lat,
-			double lng) {
-
-		return HelperGUI.filterReviews(category, lat, lng);
-
-	}
 
 	public static Object[] doTopicModelling(ArrayList<Review> reviews) {
 
@@ -38,6 +34,11 @@ public class Engine {
 		
 		return HelperGUI.getReviewsOfWord(word);
 		
+	}
+	
+	public static ArrayList rankBusinesses(WordTopic wordTopic, LdaModel model,
+			ArrayList<Review> reviews) {
+		return ManageReviews.rankBusinesses(wordTopic, model, reviews);
 	}
 
 }

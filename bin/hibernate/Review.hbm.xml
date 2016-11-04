@@ -23,6 +23,7 @@
       <property name="reviewId" column="review_id" type="string"/>
       <property name="stars" column="stars" type="int"/>
       <property name="date" column="date" type="string"/>
+      <property name="topicValue" column="topic_value" type="double"/>
    </class>
    
    

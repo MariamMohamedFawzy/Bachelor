@@ -42,13 +42,24 @@ public class Review implements Serializable {
     
     private int id;
     
-    public int getId() {
+    private double topicValue;
+    
+    public double getTopicValue() {
+		return topicValue;
+	}
+
+	public void setTopicValue(double topicValue) {
+		this.topicValue = topicValue;
+	}
+
+	public int getId() {
     	return this.id;
     }
     
     public void setId(int id) {
     	this.id = id;
     }
+    
 
     /**
      * 
