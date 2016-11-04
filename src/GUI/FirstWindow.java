@@ -53,14 +53,11 @@ public class FirstWindow extends javax.swing.JFrame {
 	Runnable doWorkRunnable = new Runnable() {
 		@Override
 		public void run() {
+			GUIFunctions.start();
 			Object elements[];
 			try {
 				elements = JsonToJava.readCategories();
 			} catch (JsonSyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				elements = new Object[] {};
-			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				elements = new Object[] {};

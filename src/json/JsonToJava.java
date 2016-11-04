@@ -1,11 +1,17 @@
 package json;
 
+import helpers.HelperManageReviews;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,14 +25,21 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 public class JsonToJava {
-	
+
+	public static void start() {
+		if (isTheFirstTime()) {
+			saveBusinesses();
+			saveReviews();
+		}
+	}
+
 	public static ArrayList<Review> readReviews() {
 		// long startTime = System.nanoTime();
-		// 
+		//
 		// long stopTime = System.nanoTime();
-		// System.out.println(stopTime - startTime); 
+		// System.out.println(stopTime - startTime);
 		// 161856370659
-		
+
 		String goodReviewsSer = "/Users/apple/Documents/workspace/Bachelor Project/src/good_reviews";
 		ArrayList<Review> goodReviews = new ArrayList<Review>();
 		File f = new File(goodReviewsSer);
@@ -95,7 +108,7 @@ public class JsonToJava {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		ManageReviews.saveReviews(reviews);
 
 		saveFile(reviews,
@@ -135,75 +148,89 @@ public class JsonToJava {
 		return goodReviews;
 	}
 
-	public static ArrayList<Business> getBusinesses() {
+	public static ArrayList<Business> readBusinesses() {
+		return ManageReviews.readBusinesses();
+	}
 
-		String serBusiness = "/Users/apple/Documents/workspace/Bachelor Project/src/ser_businesses";
+	public static Object[] readCategories() {
+		ArrayList<String> categories = HelperManageReviews
+				.getDistinctCategories();
+		return categories.toArray();
+	}
 
-		File f = new File(serBusiness);
-		if (f.exists() && !f.isDirectory()) {
-			ArrayList<Business> businesses = loadFile(serBusiness);
+	private static void saveReviews() {
+		ArrayList<Review> reviews = new ArrayList<Review>();
+		String reviewsFilePath = "/Users/apple/Documents/workspace/Bachelor Project/src/reviews50000.json";
+		try {
+			for (String line : Files.readAllLines(Paths.get(reviewsFilePath))) {
+				Gson gson = new GsonBuilder().create();
+				Review review = gson.fromJson(line, Review.class);
+				reviews.add(review);
+			}
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ManageReviews.saveReviews(reviews);
+	}
 
-			return businesses;
+	private static void saveBusinesses() {
+		ArrayList<Business> businesses = new ArrayList<Business>();
+		String businessFilePath = "/Users/apple/Documents/workspace/Bachelor Project/src/yelp_academic_dataset_business.json";
+		try {
+			for (String line : Files.readAllLines(Paths.get(businessFilePath))) {
+				Gson gson = new GsonBuilder().create();
+				Business business = gson.fromJson(line, Business.class);
+				businesses.add(business);
+			}
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		} else {
-			ArrayList<Business> businesses = new ArrayList<Business>();
+		ManageReviews.saveBusinesses(businesses);
+	}
 
+	private static boolean isTheFirstTime() {
+		boolean flag = false;
+		BufferedReader br = null;
+		String filePath = "/Users/apple/Documents/workspace/Bachelor Project/startProject/start.txt";
+		try {
+			br = new BufferedReader(new FileReader(filePath));
+
+			String line = br.readLine();
+
+			if (line.equals("true")) {
+				flag = true;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (flag) {
 			try {
-				for (String line : Files
-						.readAllLines(Paths
-								.get("/Users/apple/Documents/workspace/Bachelor Project/src/yelp_academic_dataset_business.json"))) {
-					Gson gson = new GsonBuilder().create();
-					Business business = gson.fromJson(line, Business.class);
-					businesses.add(business);
-				}
-			} catch (JsonSyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				PrintWriter writer = new PrintWriter(filePath, "UTF-8");
+				writer.println("false");
+				writer.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			ManageReviews.saveBusinesses(businesses);
-
-			saveFile(businesses,
-					"/Users/apple/Documents/workspace/Bachelor Project/src/ser_businesses");
-			return businesses;
 		}
+		return flag;
 	}
 
-	public static Object[] readCategories() throws JsonSyntaxException,
-			IOException {
-
-		String serCat = "/Users/apple/Documents/workspace/Bachelor Project/src/ser_categories";
-
-		File f = new File(serCat);
-		if (f.exists() && !f.isDirectory()) {
-			ArrayList<String> categories = loadFile(serCat);
-			return categories.toArray();
-		} else {
-			ArrayList<Business> businesses = getBusinesses();
-
-			ArrayList<String> categories = new ArrayList<String>();
-
-			for (Business business : businesses) {
-				ArrayList<String> categs = (ArrayList<String>) business
-						.getCategories();
-				for (String string : categs) {
-					if (!categories.contains(string)) {
-						categories.add(string);
-					}
-				}
-			}
-
-			saveFile(categories, serCat);
-			return categories.toArray();
-
-		}
-
-	}
-
-	public static ArrayList loadFile(String filename) {
+	private static ArrayList loadFile(String filename) {
 		ArrayList reviews;
 		try {
 			FileInputStream fis = new FileInputStream(filename);
@@ -218,7 +245,7 @@ public class JsonToJava {
 
 	}
 
-	public static void saveFile(ArrayList reviews, String filename) {
+	private static void saveFile(ArrayList reviews, String filename) {
 		try {
 			FileOutputStream fos = new FileOutputStream(filename);
 			ObjectOutputStream out = new ObjectOutputStream(fos);

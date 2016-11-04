@@ -1,6 +1,6 @@
 package Engine;
 
-import helpers.Helper;
+import helpers.HelperGUI;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -16,27 +16,27 @@ public class Engine {
 	public static ArrayList<Review> filterReviews(String category, double lat,
 			double lng) {
 
-		return Helper.filterReviews(category, lat, lng);
+		return HelperGUI.filterReviews(category, lat, lng);
 
 	}
 
 	public static Object[] doTopicModelling(ArrayList<Review> reviews) {
 
-		Helper.writeReviewsToFiles(reviews);
+		HelperGUI.writeReviewsToFiles(reviews);
 
-		return Helper.doTopicModelling();
+		return HelperGUI.doTopicModelling();
 
 	}
 
 	public static WordTopic[] getWordsOfTopics() {
 
-		return Helper.getWordsOfTopics();
+		return HelperGUI.getWordsOfTopics();
 
 	}
 
 	public static ArrayList<Review> getReviewsOfWord(WordTopic word) {
 		
-		return Helper.getReviewsOfWord(word);
+		return HelperGUI.getReviewsOfWord(word);
 		
 	}
 

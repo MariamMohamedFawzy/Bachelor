@@ -19,8 +19,8 @@
       </component>
       <property name="userId" column="user_id" type="string"/>
       <property name="text" column="review_text" type="string"/>
-      <property name="businessId" column="business_id" type="int"/>
-      <property name="reviewId" column="review_id" type="int"/>
+      <property name="businessId" column="business_id" type="string"/>
+      <property name="reviewId" column="review_id" type="string"/>
       <property name="stars" column="stars" type="int"/>
       <property name="date" column="date" type="string"/>
    </class>

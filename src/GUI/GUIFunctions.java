@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import json.JsonToJava;
 import json.Review;
 import liuyang.nlp.lda.main.Documents;
 import liuyang.nlp.lda.main.LdaModel;
@@ -21,6 +22,10 @@ import Engine.WordTopic;
 import JXMapClasses.GeocoderExample;
 
 public class GUIFunctions {
+	
+	public static void start() {
+		JsonToJava.start();
+	}
 
 	public static FirstWindow firstWindowFrame;
 

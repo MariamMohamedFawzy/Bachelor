@@ -29,7 +29,7 @@ import liuyang.nlp.lda.main.LdaGibbsSampling.modelparameters;
 import liuyang.nlp.lda.main.LdaModel;
 import wordcram.Word;
 
-public class Helper {
+public class HelperGUI {
 	
 	public static int numLines = 0;
 
@@ -42,7 +42,7 @@ public class Helper {
 			lng = Double.valueOf(df.format(lng));
 		}
 
-		ArrayList<Business> businesses = JsonToJava.getBusinesses();
+		ArrayList<Business> businesses = JsonToJava.readBusinesses();
 
 		ArrayList<Review> reviews = JsonToJava.readReviews();
 
@@ -84,16 +84,9 @@ public class Helper {
 	}
 
 	public static void writeReviewsToFiles(ArrayList<Review> reviews) {
-//		PrintWriter writer2 = null;
-//		try {
-//			writer2 = new PrintWriter("/Users/apple/Desktop/c_arr.txt", "UTF-8");
-//
-//		} catch (Exception e) {
-//			// do something
-//		}
-		// String rArr = "c(";
+
 		String fileDir = "/Users/apple/Documents/workspace/Bachelor Project/data/LdaOriginalDocs/";
-		Helper.purgeDirectory(new File(fileDir));
+		HelperGUI.purgeDirectory(new File(fileDir));
 
 		for (Review review : reviews) {
 			PrintWriter writer = null;
@@ -101,9 +94,6 @@ public class Helper {
 				writer = new PrintWriter(fileDir + "review_"
 						+ review.getReviewId(), "UTF-8");
 				writer.print(review.getText());
-//				writer2.println(review.getReviewId());
-				// rArr = rArr + "'" + review.getReviewId() + "', " ;
-
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -113,17 +103,12 @@ public class Helper {
 				}
 			}
 		}
-//		writer2.close();
-		// rArr = rArr.substring(0, rArr.length() - 2);
-		// rArr = rArr + ")";
-		// System.out.println(rArr);
 	}
 
 	public static Object[] doTopicModelling() {
 		try {
 			return LdaGibbsSampling.prevMain();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -155,7 +140,6 @@ public class Helper {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
